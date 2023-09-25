@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Nav from "./Nav";
 import { ImCancelCircle } from "react-icons/im";
 import { MdShoppingCartCheckout } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 
 const variants = {
@@ -16,16 +16,19 @@ const side = {
 };
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispact = useDispatch();
 
   const handleClick = () => {
     // e.preventDefault();
     setIsOpen(!isOpen);
   };
 
-  const { cartData } = useSelector((state) => state.cart);
+  const data = useSelector((state) => state.cart);
+  // console.log(data);
   return (
     <>
       <motion.div
+      
         animate={isOpen ? "open" : "closed"}
         variants={variants}
         className={
@@ -54,12 +57,10 @@ const Sidebar = () => {
           <h1 className="text-3xl font-bold text-primary">Shopping Cart</h1>
         </div>
         <div className="overflow-scroll h-full">
-          {cartData.map((e) => {
-            return <CartItem {...e} />;
-          })}
+          {data.cartData?.map((e) => <CartItem {...e} />)}
         </div>
         <div className="flex py-8 pt-5 justify-between absolute bg-white z-50 items-center bottom-0 px-6 w-full">
-          <h1 className="text-3xl font-bold text-primary">Total : </h1>
+          <h1 className="text-3xl font-bold text-primary">Total : {(data.totalAmount).toFixed(2)}  </h1>
           <button
             className="text-xl p-3 rounded-xl items-center gap-2 border-2 flex text-primary border-primary"
             onClick={() => setIsOpen(!isOpen)}

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import { useSelector } from "react-redux";
 
 const Cards = () => {
   useEffect(() => {
     fetchData();
   }, []);
  
+  const { cartData } = useSelector((state) => state.cart);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,6 +18,7 @@ const Cards = () => {
     setProducts(data);
     setLoading(false)
   };
+  // console.log(products.filter((item)=>item.id == 2 ));
 
   if(loading){
     return (

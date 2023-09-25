@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { HiShoppingCart } from "react-icons/hi";
 const Nav = ({click}) => {
   const openSidebar = () => {
-    console.log(click);
+    // console.log(click);
     click();
   };
 

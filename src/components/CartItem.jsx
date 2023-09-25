@@ -2,10 +2,18 @@ import React from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { FiMinusSquare } from "react-icons/fi";
 import { FiPlusSquare } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { remove } from "../feature/service/cartSlice";
 
-const CartItem = ({ image, title, price ,quantity}) => {
+const CartItem = (props) => {
+  const dispatch = useDispatch();
+  const { image, title, price, quantity, id } = props;
+  // console.log(props);
   return (
-    <div className="flex ms-8 me-10 my-3 text-gray-600 bg-white w-[90%] border-primary border p-5 rounded-xl relative">
+    <div
+      key={id}
+      className="flex ms-8 me-10 my-3 text-gray-600 bg-white w-[90%] border-primary border p-5 rounded-xl relative"
+    >
       <div className="flex items-center">
         <img src={image} className="h-24 me-5" alt="" />
         <div className="flex flex-col">
@@ -24,7 +32,10 @@ const CartItem = ({ image, title, price ,quantity}) => {
           <FiMinusSquare />
         </button>
       </div>
-      <div className="bg-primary rounded-full flex justify-center items-center text-white w-8 h-8 absolute top-[-10px]  right-[-10px]">
+      <div
+        className="bg-primary rounded-full flex justify-center items-center text-white w-8 h-8 absolute top-[-10px]  right-[-10px]"
+        onClick={() => dispatch(remove(props))}
+      >
         <FiTrash2 />
       </div>
     </div>

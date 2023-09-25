@@ -1,12 +1,19 @@
-import React from 'react'
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../feature/service/cartSlice';
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../feature/service/cartSlice";
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { motion } from "framer-motion";
 const Card = (props) => {
-    const dispatch = useDispatch();
-    const {id, title, price, description,image} = props;
+  const dispatch = useDispatch();
+  const { cartData } = useSelector((state) => state.cart);
+  const { id, title, price, description, image, added } = props;
+  const [add, setAdd] = useState(false);
+
   return (
-    <div className="w-[300px] text-gray-600  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div
+      key={id}
+      className="w-[300px] text-gray-600  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
       <a href="#">
         <img
           className="p-8 h-[250px] mx-auto rounded-t-lg"
@@ -72,17 +79,22 @@ const Card = (props) => {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-3xl  font-bold">$ {price}</span>
-          <a
-            href="#"
-            onClick={() => dispatch(addToCart(props))}
-            className="text-white bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Add to cart
-          </a>
+          {cartData.map((e) => e.id).includes(id) ? (
+            <p className="text-white flex items-center gap-2 select-none bg-green-400  hover:bg-green-400/80 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+              <BsFillCartCheckFill /> Added
+            </p>
+          ) : (
+            <button
+              onClick={() => dispatch(addToCart(props))}
+              className=" text-white select-none bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Add to cart
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Card
+export default Card;
