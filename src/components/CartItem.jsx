@@ -33,7 +33,7 @@ const CartItem = (props) => {
       <div className="flex items-center">
         <img src={image} className="h-24 me-5" alt="" />
         <div className="flex flex-col">
-          <h1 className="w-[80%] text-xl">{title}</h1>
+          <h1 className="w-[80%] text-xl">{title.substring(0,20)}</h1>
           <p className="text-xl font-bold text-primary">$ {price}</p>
         </div>
       </div>
