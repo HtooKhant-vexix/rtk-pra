@@ -11,18 +11,22 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
-      state.cartData = [...state.cartData, { ...payload, quantity: 1 }];
-      state.totalAmount += payload.price;
+      if (!state.cartData.map((e) => e.id).includes(payload.id)) {
+        state.cartData = [...state.cartData, { ...payload, quantity: 1 }];
+        state.totalAmount += payload.price;
+      }
+
       // state.quantity++;
       // console.log(state.quantity);
       // console.log(payload);
     },
     remove: (state, { payload }) => {
-      state.cartData = state.cartData.filter((data) => data.id != payload.id);
-      state.totalAmount -= payload.price;
+      // setTimeout(() => {
+        state.cartData = state.cartData.filter((data) => data.id != payload.id);
+        state.totalAmount -= payload.price;
+      // }, 1000);
       // state.quantity--;
       // console.log(state.quantity);
-
     },
   },
 });

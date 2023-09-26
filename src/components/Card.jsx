@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 const Card = (props) => {
   const dispatch = useDispatch();
   const { cartData } = useSelector((state) => state.cart);
-  const { id, title, price, description, image, added } = props;
+  const { id, title, price, description, image } = props;
   const [add, setAdd] = useState(false);
 
   return (
@@ -79,18 +79,28 @@ const Card = (props) => {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-3xl  font-bold">$ {price}</span>
-          {cartData.map((e) => e.id).includes(id) ? (
+          {/* {cartData.map((e) => e.id).includes(id) ? (
             <p className="text-white flex items-center gap-2 select-none bg-green-400  hover:bg-green-400/80 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
               <BsFillCartCheckFill /> Added
             </p>
-          ) : (
-            <button
-              onClick={() => dispatch(addToCart(props))}
-              className=" text-white select-none bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Add to cart
-            </button>
-          )}
+          ) : ( */}
+          <button
+            onClick={() => dispatch(addToCart(props))}
+            className={` text-white select-none font-medium rounded-lg text-sm px-5 py-2.5 text-center:null ${
+              !cartData.map((e) => e.id).includes(id)
+                ? " bg-primary border-2 hover:border-primary/80 duration-300 hover:bg-primary/80 "
+                : " bg-transparent border-2 border-green-400 duration-300 "
+            }`}
+          >
+            {!cartData.map((e) => e.id).includes(id) ? (
+              <div className="duration-300">Add to cart</div>
+            ) : (
+              <div className="flex text-green-400 font-semibold duration-300 items-center gap-2">
+                <BsFillCartCheckFill /> Added
+              </div>
+            )}
+          </button>
+          {/* )} */}
         </div>
       </div>
     </div>

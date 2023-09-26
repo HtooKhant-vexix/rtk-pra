@@ -5,6 +5,7 @@ import { ImCancelCircle } from "react-icons/im";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
+import { BsCart4 } from "react-icons/bs";
 
 const variants = {
   open: { opacity: 1, scale: 1 },
@@ -24,11 +25,10 @@ const Sidebar = () => {
   };
 
   const data = useSelector((state) => state.cart);
-  // console.log(data);
+  console.log(data);
   return (
     <>
       <motion.div
-      
         animate={isOpen ? "open" : "closed"}
         variants={variants}
         className={
@@ -48,19 +48,30 @@ const Sidebar = () => {
         // onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex py-8 pt-5 justify-between absolute bg-white z-50 top-0 items-center px-6 w-full">
-          <button
-            className="text-3xl p-3 rounded-xl border-2 text-primary border-primary"
+          <motion.button
+            className="text-3xl p-3 rounded-xl border-2 hover:text-red-400 hover:border-red-400 duration-200 text-primary border-primary"
             onClick={() => setIsOpen(!isOpen)}
           >
             <ImCancelCircle />
-          </button>
-          <h1 className="text-3xl font-bold text-primary">Shopping Cart</h1>
+          </motion.button>
+          <h1 className="text-3xl font-bold text-primary font-serif">Shopping Cart</h1>
         </div>
         <div className="overflow-scroll h-full">
-          {data.cartData?.map((e) => <CartItem {...e} />)}
+          {data.cartData.length != 0 ? (
+            data.cartData?.map((e) => <CartItem key={e.id} {...e} />)
+          ) : (
+            <div className="flex justify-center items-center text-primary/20 font-sans  h-full w-full">
+              <div className="flex flex-col items-center gap-4 font-semibold text-4xl">
+                <BsCart4 className="text-[100px]"/>
+                EMPTY CART
+              </div>
+            </div>
+          )}
         </div>
         <div className="flex py-8 pt-5 justify-between absolute bg-white z-50 items-center bottom-0 px-6 w-full">
-          <h1 className="text-3xl font-bold text-primary">Total : {(data.totalAmount).toFixed(2)}  </h1>
+          <h1 className="text-3xl font-bold text-primary">
+            Total : {data.totalAmount.toFixed(2)}{" "}
+          </h1>
           <button
             className="text-xl p-3 rounded-xl items-center gap-2 border-2 flex text-primary border-primary"
             onClick={() => setIsOpen(!isOpen)}
