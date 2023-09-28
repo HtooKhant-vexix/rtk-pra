@@ -3,8 +3,8 @@ import { FiTrash2 } from "react-icons/fi";
 import { FiMinusSquare } from "react-icons/fi";
 import { FiPlusSquare } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { remove } from "../feature/service/cartSlice";
-import { motion } from "framer-motion";
+import { decrease, increase, remove } from "../feature/service/cartSlice";
+import { easeIn, motion } from "framer-motion";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
@@ -33,20 +33,30 @@ const CartItem = (props) => {
       <div className="flex items-center">
         <img src={image} className="h-24 me-5" alt="" />
         <div className="flex flex-col">
-          <h1 className="w-[80%] text-xl">{title.substring(0,20)}</h1>
+          <h1 className="w-[80%] text-xl">{title.substring(0, 20)}</h1>
           <p className="text-xl font-bold text-primary">$ {price}</p>
         </div>
       </div>
-      <div className="flex ms-auto text-gray-600 justify-center items-center me-5 flex-col">
-        <button className="text-2xl font-semibold">
+      <div className="flex ms-auto text-primary justify-center items-center me-5 flex-col">
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 1 }}
+          onClick={() => dispatch(increase(id))}
+          className="text-2xl duration-[0.5] font-semibold"
+        >
           <FiPlusSquare />
-        </button>
+        </motion.button>
         <p className="my-1 text-xl text-primary rounded-md px-2 border-2 border-primary">
           {quantity}
         </p>
-        <button className="text-2xl">
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 1 }}
+          onClick={() => dispatch(decrease(id))}
+          className="text-2xl"
+        >
           <FiMinusSquare />
-        </button>
+        </motion.button>
       </div>
       <motion.div
         whileTap={{ scale: 1.1 }}

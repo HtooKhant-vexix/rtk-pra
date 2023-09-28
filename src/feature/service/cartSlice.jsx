@@ -16,22 +16,46 @@ export const cartSlice = createSlice({
         state.totalAmount += payload.price;
       }
 
-      // state.quantity++;
-      // console.log(state.quantity);
-      // console.log(payload);
+      state.quantity++;
     },
     remove: (state, { payload }) => {
-      // setTimeout(() => {
-        state.cartData = state.cartData.filter((data) => data.id != payload.id);
-        state.totalAmount -= payload.price;
-      // }, 1000);
-      // state.quantity--;
+      state.cartData = state.cartData.filter((data) => data.id != payload.id);
+      state.totalAmount -= payload.price;
+      state.quantity--;
       // console.log(state.quantity);
+    },
+    increase: (state, { payload }) => {
+      state.cartData?.map((data) => {
+        if (data.id == payload) {
+          data.quantity += 1;
+          // data.price *=
+          state.totalAmount += data.price;
+          state.quantity++;
+        } else {
+          return data;
+        }
+      });
+      // console.log(state.cartData);
+    },
+    decrease: (state, { payload }) => {
+      state.cartData?.map((data) => {
+        if (data.id == payload) {
+         if(data.quantity >1){
+           data.quantity -= 1;
+           // data.price *=
+           state.totalAmount -= data.price;
+           state.quantity--;
+         }
+        } else {
+          return data;
+        }
+      });
+      // console.log(state.cartData);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, remove } = cartSlice.actions;
+export const { addToCart, remove, increase,decrease } = cartSlice.actions;
 
 export default cartSlice.reducer;

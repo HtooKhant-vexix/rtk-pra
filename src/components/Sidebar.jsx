@@ -25,7 +25,7 @@ const Sidebar = () => {
   };
 
   const data = useSelector((state) => state.cart);
-  console.log(data);
+  // console.log(data);
   return (
     <>
       <motion.div
