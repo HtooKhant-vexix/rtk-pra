@@ -1,0 +1,19 @@
+{
+  "folders": [
+	{
+		"path": "../../../typeScript"
+	},
+	{
+		"path": "../.."
+	},
+	{
+		"path": "../../../Portfolio"
+	},
+	{
+		"path": "../../../workshop-pos"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "my-project"
+  }
+}

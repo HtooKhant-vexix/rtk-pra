@@ -1,20 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HiShoppingCart } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+
 const Nav = ({ click }) => {
+  const navigate = useNavigate();
+
   const openSidebar = () => {
     // console.log(click);
     click();
   };
+  const [search, setSearch] = useState();
+  // console.log(search);
 
   const { cartData } = useSelector((state) => state.cart);
+
+  const submitHandler = (e) => {
+    e.preventDefault(),
+     navigate('/search', {state:filterPd });
+
+    console.log(search);
+    console.log(filterPd);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // const { cartData } = useSelector((state) => state.cart);
+
+  const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    const api = await fetch("https://fakestoreapi.com/products");
+    const data = await api.json();
+    setProducts(data);
+    // setLoading(false)
+  };
+
+  const filterPd = products.filter((item) =>
+    item.title.toLowerCase().includes(search)
+  );
+  // console.log(filterPd);
+
   return (
     <>
       <div className="shadow-2xl bg-white shadow-primary/20 sticky top-0 z-40">
         <div className=" flex items-center justify-between  p-6 w-[80%] mx-auto">
           <p className="font-bold font-serif text-primary text-4xl">HAK</p>
           <div className="w-[50%] flex items-center justify-end">
-            <form className="w-[70%] me-8">
+            <div className="w-[70%] me-8">
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                   <svg
@@ -33,21 +69,27 @@ const Nav = ({ click }) => {
                     />
                   </svg>
                 </div>
-                <input
-                  type="search"
-                  id="default-search"
-                  className="block w-full p-4 pl-10 text-sm text-primary border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:text-white"
-                  placeholder="Search ..."
-                  required
-                />
-                <button
-                  type="submit"
-                  className="text-white font-xl absolute right-2.5 bottom-2.5 bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-primary dark:focus:ring-primary/80"
-                >
-                  Search
-                </button>
+                <form >
+                  <input
+                    // onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)}
+                    value={search}
+                    type="text"
+                    id="default-search"
+                    className="block w-full p-4 pl-10 text-sm text-primary border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary focus:border-primary dark:text-white"
+                    placeholder="Search ..."
+                    required
+                  />
+                  <button
+                    onClick={submitHandler}
+                    // type="submit"
+                    className="text-white font-xl absolute right-2.5 bottom-2.5 bg-primary hover:bg-primary/80 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-primary dark:focus:ring-primary/80"
+                  >
+                    Search
+                  </button>
+                </form>
               </div>
-            </form>
+            </div>
             <button
               onClick={openSidebar}
               type="button"

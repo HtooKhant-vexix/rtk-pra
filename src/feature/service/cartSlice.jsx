@@ -22,6 +22,7 @@ export const cartSlice = createSlice({
       state.cartData = state.cartData.filter((data) => data.id != payload.id);
       state.totalAmount -= payload.price;
       state.quantity--;
+
       // console.log(state.quantity);
     },
     increase: (state, { payload }) => {
@@ -30,6 +31,7 @@ export const cartSlice = createSlice({
           data.quantity += 1;
           // data.price *=
           state.totalAmount += data.price;
+          // data.price += data.price;
           state.quantity++;
         } else {
           return data;
@@ -44,6 +46,7 @@ export const cartSlice = createSlice({
            data.quantity -= 1;
            // data.price *=
            state.totalAmount -= data.price;
+          //  data.price -= data.price;
            state.quantity--;
          }
         } else {

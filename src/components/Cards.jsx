@@ -18,7 +18,7 @@ const Cards = () => {
     setProducts(data);
     setLoading(false)
   };
-  // console.log(products.filter((item)=>item.id == 2 ));
+  // console.log(products.filter((item)=>item.title.toLowerCase() == "men" ));
 
   if(loading){
     return (
