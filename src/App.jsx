@@ -7,7 +7,7 @@ import Search from "./components/Search";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-primary/20 h-screen overflow-scroll">
       <Sidebar />
       {/* <Nav /> */}
       <Routes>

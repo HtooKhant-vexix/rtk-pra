@@ -6,8 +6,8 @@ const Search = () => {
 const {state: filterItem} = useLocation();
 console.log(filterItem);
   return (
-    <div>
-      <div className="bg-primary/20 h-full">
+    <div className="">
+      <div className="">
         <div className="flex pt-10 flex-wrap gap-10 justify-center">
           {filterItem.map((e) => {
             return <Card key={e.id} {...e} />;
