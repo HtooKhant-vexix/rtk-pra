@@ -3,7 +3,7 @@ import Cards from './Cards'
 
 const Landing = () => {
   return (
-    <div className='bg-primary/20'>
+    <div className=''>
         <Cards/>
     </div>
   )
