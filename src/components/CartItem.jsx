@@ -41,7 +41,7 @@ const CartItem = (props) => {
             </p>
             <span className="text-lg text-primary mx-2"> =</span>
             <div className="text-xl font-bold text-primary">
-              ${price * quantity}
+              ${(price * quantity).toFixed(2)}
             </div>
           </div>
         </div>
