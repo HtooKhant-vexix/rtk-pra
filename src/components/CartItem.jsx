@@ -11,16 +11,17 @@ const CartItem = (props) => {
   const { cartData } = useSelector((state) => state.cart);
   const [del, setDel] = useState(false);
   const { image, title, price, quantity, id } = props;
-  console.log(del);
+  console.log(quantity);
   // const multiFun = () => {
   //   setDel(true);
   //   // setDel((test = cartData.map((e) => e.id) == id));
   // };
-  del&&setTimeout(() => {
-    dispatch(remove(props));
-    setDel(false)
-    // console.log(del);
-  }, 200);
+  del &&
+    setTimeout(() => {
+      dispatch(remove(props));
+      setDel(false);
+      // console.log(del);
+    }, 200);
 
   return (
     <div
@@ -34,7 +35,15 @@ const CartItem = (props) => {
         <img src={image} className="h-24 me-5" alt="" />
         <div className="flex flex-col">
           <h1 className="w-[80%] text-xl">{title.substring(0, 20)}</h1>
-          <p className="text-xl font-bold text-primary">$ {price}</p>
+          <div className="flex">
+            <p className="text-lg text-primary">
+              $ {price} <span className="text-primary/50">({quantity})</span>
+            </p>
+            <span className="text-lg text-primary mx-2"> =</span>
+            <div className="text-xl font-bold text-primary">
+              ${price * quantity}
+            </div>
+          </div>
         </div>
       </div>
       <div className="flex ms-auto text-primary justify-center items-center me-5 flex-col">

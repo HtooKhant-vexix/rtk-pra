@@ -27,7 +27,7 @@ const Card = (props) => {
             {title.substring(0, 20)}
           </h5>
         </a>
-        <div className="flex items-center mt-2.5 mb-5">
+        {/* <div className="flex items-center mt-2.5 mb-5">
           <svg
             className="w-4 h-4 text-yellow-300 mr-1"
             aria-hidden="true"
@@ -76,7 +76,8 @@ const Card = (props) => {
           <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
             5.0
           </span>
-        </div>
+        </div> */}
+        <div className=" my-2 text-gray-500">{description.slice(0,45)} <span className="text-gray-400">see more ...</span> </div>
         <div className="flex items-center justify-between">
           <span className="text-3xl  font-bold">$ {price}</span>
           {/* {cartData.map((e) => e.id).includes(id) ? (

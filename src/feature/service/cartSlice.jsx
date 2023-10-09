@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
     },
     remove: (state, { payload }) => {
       state.cartData = state.cartData.filter((data) => data.id != payload.id);
-      state.totalAmount -= payload.price;
+      state.totalAmount -= (payload.price * payload.quantity);
       state.quantity--;
 
       // console.log(state.quantity);
